@@ -31,8 +31,10 @@
         layer:
         - MachineLayer
   - type: Lathe
-    idleState: autolathe
-    runningState: autolathe_n
+    idleState: icon
+    runningState: building
+    unlitIdleState: unlit
+    unlitRunningState: unlit-building
     producingSound: /Audio/_RMC14/Machines/print.ogg
     staticRecipes:
     - RMCBucket
