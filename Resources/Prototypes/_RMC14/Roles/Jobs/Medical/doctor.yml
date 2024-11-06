@@ -14,14 +14,24 @@
   supervisors: cm-job-supervisors-cmo
   accessGroups:
   - CMMedbay
+  minimapIcon:
+    sprite: _RMC14/Interface/map_blips.rsi
+    state: doctor
+  minimapBackground:
+   sprite: _RMC14/Interface/map_blips.rsi
+   state: background_medical
   special:
   - !type:AddComponentSpecial
     components:
     - type: Skills
-      firearms: 0
-      medical: 3
-      surgery: 2
+      skills:
+        RMCSkillFirearms: 0
+        RMCSkillFireman: 1
+        RMCSkillMedical: 3
+        RMCSkillSurgery: 2
     - type: RMCUserBulkyArmorIncapable
+    - type: JobPrefix
+      prefix: "Doc"
 
 - type: startingGear
   id: CMGearDoctor
@@ -39,7 +49,7 @@
     outerClothing: CMCoatLong
     back: CMSatchelMarine
     gloves: CMHandsLatex
-    shoes: ClothingShoesColorWhite
+    shoes: RMCShoesWhite
     head: CMHeadCapSurgBlue
     id: CMIDCardDoctor
     ears: CMHeadsetMedical
@@ -60,3 +70,4 @@
 
 - type: playTimeTracker
   id: CMJobDoctor
+  isHumanoid: true

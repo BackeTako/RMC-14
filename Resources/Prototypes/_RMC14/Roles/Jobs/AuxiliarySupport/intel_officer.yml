@@ -14,20 +14,28 @@
   supervisors: cm-job-supervisors-aso
   accessGroups:
   - IntelOfficer
+  minimapIcon:
+    sprite: _RMC14/Interface/map_blips.rsi
+    state: io
   special:
   - !type:AddComponentSpecial
     components:
     - type: Skills
-      cqc: 1
-      engineer: 2
-      firearms: 1
-      intel: 2
-      jtac: 2
-      leadership: 2
-      meleeWeapons: 1
-      overwatch: 1
-      research: 1
+      skills:
+        RMCSkillCqc: 1
+        RMCSkillEngineer: 2
+        RMCSkillFirearms: 1
+        RMCSkillFireman: 1
+        RMCSkillIntel: 2
+        RMCSkillJtac: 2
+        RMCSkillLeadership: 2
+        RMCSkillMeleeWeapons: 1
+        RMCSkillOverwatch: 1
+        RMCSkillResearch: 1
     - type: MarineOrders
+    - type: RMCPointing
+    - type: JobPrefix
+      prefix: "IO"
   hidden: true # TODO RMC14
 
 - type: startingGear
@@ -52,4 +60,5 @@
     - state: intel_officer
 
 - type: playTimeTracker
+  isHumanoid: true
   id: CMJobIntelOfficer

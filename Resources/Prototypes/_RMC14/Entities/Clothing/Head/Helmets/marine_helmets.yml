@@ -1,6 +1,6 @@
 # m10
 - type: entity
-  parent: ClothingHeadBase
+  parent: [RMCMarineHelmetBase, RMCFoldableHelmetBase]
   id: ArmorHelmetM10
   name: M10 pattern marine helmet
   description: A standard M10 Pattern Helmet. The inside label, along with washing information, reads, 'The difference between an open-casket and closed-casket funeral. Wear on head for best results.'. There is a built-in camera on the right side.
@@ -9,59 +9,6 @@
     sprite: _RMC14/Objects/Clothing/Head/Helmets/m10/standard.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Helmets/m10/standard.rsi
-  - type: Storage #hopefully in the future someone smarter than me can add storage(?) for integrated things like netting, HUD, etc. but for now this is for hiding snacks
-    maxItemSize: Tiny
-    grid:
-    - 0,0,3,1 # TODO RMC14 7, but 2 slots are reserved for garbs
-    blacklist:
-      tags:
-      - Pouch
-  - type: ContainerContainer
-    containers:
-      storagebase: !type:Container
-        ents: [ ]
-  - type: UserInterface
-    interfaces:
-      enum.StorageUiKey.Key:
-        type: StorageBoundUserInterface
-  - type: CMArmor
-    armor: 20
-    explosionArmor: 10
-  - type: CMHardArmor
-  - type: RMCNameItemOnVend
-    item: Helmet
-  - type: RMCBulkyArmor
-  - type: ExplosionResistance
-    damageCoefficient: 0
-    worn: false
-  - type: IgnoreContentsSize
-    items:
-      components:
-      - RMCLighter
-      - RMCFlask
-      - CMScalpel
-      - Figurine
-      tags:
-#      - TODO RMC14 matchbox
-      - Cigarette
-#      - TODO RMC14 cards
-      - Slice
-#      - TODO RMC14 glasses (eyewear)
-#      - TODO RMC14 walkman and casettes
-#      - TODO RMC14 helmet garb
-      - Pen
-      - Crayon
-#      - TODO RMC14 handful of bullets
-      - Flashlight
-      - Brutepack
-      - CMOintment
-      - CMAutoInjector
-      - PillPacket
-  - type: FixedItemSizeStorage
-  - type: InteractedBlacklist
-    blacklist:
-      components:
-      - Xeno
 
 - type: entity
   parent: ArmorHelmetM10
@@ -113,6 +60,15 @@
   - type: ShowHealthIcons # TODO RMC14 Hack
     damageContainers:
     - Biological
+  - type: SquadArmor
+    layer: Helmet
+    slot: HEAD
+    rsi:
+      sprite: _RMC14/Objects/Clothing/Head/Helmets/helmet_overlays.rsi
+      state: std-helmet-medic
+    leaderRsi:
+      sprite: _RMC14/Objects/Clothing/Head/Helmets/helmet_overlays.rsi
+      state: sql-helmet-medic
 
 - type: entity
   parent: ArmorHelmetM10
@@ -131,7 +87,7 @@
   parent: ArmorHelmetM10
   id: CMArmorHelmetM11
   name: M11 pattern leader helmet
-  description: A slightly fancier helmet for marine leaders. This one contains a small built-in camera and has cushioning to project your fragile brain.
+  description: A slightly fancier helmet for marine leaders. This one contains a small built-in camera and has cushioning to protect your fragile brain.
   components:
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Head/Helmets/m11.rsi
@@ -177,7 +133,7 @@
 # M3-S Scout Spec
 - type: entity
   parent: ArmorHelmetM10
-  id: CMArmorHelmetM3Scout
+  id: RMCArmorHelmetM3Scout
   name: M3-S helmet
   description: A custom helmet from the M3 series designed to be lightweight and used for recon missions.
   components:
@@ -188,7 +144,7 @@
 
 # M3-G4 Grenadier Spec
 - type: entity
-  parent: CMArmorHelmetM3Scout
+  parent: RMCArmorHelmetM3Scout
   id: RMCArmorHelmetM3G4
   name: M3-G4 helmet
   description: Pairs with the M3-G4 heavy grenadier plating. A distant cousin of the experimental B18 defensive helmet. # As such, it also resists some parasite latching attempts.
@@ -200,6 +156,8 @@
   - type: CMArmor
     armor: 25
     explosionArmor: 50
+  - type: ParasiteResistance
+    maxCount: 6
 
 # M35 Pyro Spec
 - type: entity
@@ -215,7 +173,7 @@
 
 # M45 Sniper Spec
 - type: entity
-  parent: ArmorHelmetM10
+  parent: RMCMarineHelmetBase
   id: CMArmorHelmetM45
   name: M45 ghillie helmet
   description: A lightweight M45 helmet with ghillie coif used by Marine snipers on recon missions.
@@ -224,6 +182,12 @@
     sprite: _RMC14/Objects/Clothing/Head/Helmets/m45.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Helmets/m45.rsi
+  - type: HideLayerClothing # coif
+    slots:
+    - Hair
+    - Snout
+    - HeadTop
+    - HeadSide
 
 # M3-T Demo Spec
 - type: entity
@@ -235,5 +199,4 @@
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Head/Helmets/m3/t_demo.rsi
   - type: Clothing
-    sprite: _RMC14/Objects/Clothing/Head/Helmets/m3/t_demo.rsi
-# TODO RMC14 Give hearing protection component if ear damage is added
+    sprite: _RMC14/Objects/Clothing/Head/Helmets/m3/t_demo.rsi # TODO RMC14 Give hearing protection component if ear damage is added

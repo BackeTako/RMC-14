@@ -10,13 +10,23 @@
   supervisors: cm-job-supervisors-qm
   accessGroups:
   - CMCargoTech
+  minimapIcon:
+    sprite: _RMC14/Interface/map_blips.rsi
+    state: cargo
+  minimapBackground:
+   sprite: _RMC14/Interface/map_blips.rsi
+   state: background_shipside
   special:
   - !type:AddComponentSpecial
     components:
     - type: Skills
-      construction: 1
-      firearms: 1
-      powerLoader: 2
+      skills:
+        RMCSkillConstruction: 1
+        RMCSkillFirearms: 1
+        RMCSkillFireman: 1
+        RMCSkillPowerLoader: 2
+    - type: JobPrefix
+      prefix: "CT"
 
 - type: startingGear
   id: CMGearCargoTech
@@ -28,7 +38,7 @@
     gloves: CMHandsInsulated
     id: CMIDCardCargoTech
     ears: CMHeadsetRequisition
-    pocket1: CMPouchGeneralMedium
+    pocket1: RMCPouchGeneralMedium
     pocket2: CMStampApproved
 #    belt: TODO RMC14 M276 Pattern General Pistol Holster Rig Filled
 
@@ -47,3 +57,4 @@
 
 - type: playTimeTracker
   id: CMJobCargoTech
+  isHumanoid: true

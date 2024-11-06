@@ -13,6 +13,7 @@ public abstract class SharedMarineOrdersSystem : EntitySystem
     [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly MovementSpeedModifierSystem _movementSpeed = default!;
+    [Dependency] private readonly SkillsSystem _skills = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
 
     private readonly HashSet<Entity<MarineComponent>> _receivers = new();
@@ -108,7 +109,7 @@ public abstract class SharedMarineOrdersSystem : EntitySystem
             return false;
         }
 
-        var level = Math.Max(1, CompOrNull<SkillsComponent>(orders)?.Skills.Leadership ?? 1);
+        var level = Math.Max(1, _skills.GetSkill(orders.Owner, orders.Comp.Skill));
         var duration = orders.Comp.Duration * (level + 1);
 
         // TODO RMC14 implement focus order effects
@@ -144,15 +145,6 @@ public abstract class SharedMarineOrdersSystem : EntitySystem
         _movementSpeed.RefreshMovementSpeedModifiers(receiver);
     }
 
-    public override void Update(float frameTime)
-    {
-        base.Update(frameTime);
-
-        RemoveExpired<MoveOrderComponent>();
-        RemoveExpired<FocusOrderComponent>();
-        RemoveExpired<HoldOrderComponent>();
-    }
-
     private void RemoveExpired<T>() where T : IComponent, IOrderComponent
     {
         var query = EntityQueryEnumerator<T>();
@@ -170,5 +162,20 @@ public abstract class SharedMarineOrdersSystem : EntitySystem
             if (comp.Received.Count == 0)
                 RemCompDeferred<T>(uid);
         }
+    }
+
+    public void StartActionUseDelay(Entity<MarineOrdersComponent> orders)
+    {
+        _actions.StartUseDelay(orders.Comp.HoldActionEntity);
+        _actions.StartUseDelay(orders.Comp.MoveActionEntity);
+    }
+
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+
+        RemoveExpired<MoveOrderComponent>();
+        RemoveExpired<FocusOrderComponent>();
+        RemoveExpired<HoldOrderComponent>();
     }
 }
