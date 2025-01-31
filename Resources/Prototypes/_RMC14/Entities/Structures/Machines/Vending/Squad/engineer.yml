@@ -298,6 +298,7 @@
       map: [ "enum.VendingMachineVisualLayers.Base" ]
     - state: "normal-unshaded"
       map: [ "enum.VendingMachineVisualLayers.BaseUnshaded" ]
+      shader: unshaded
   - type: CMAutomatedVendor
     jobs:
     - CMCombatTech
